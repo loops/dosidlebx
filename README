@@ -1,0 +1,48 @@
+Original DosIdle
+----------------
+
+Obtained from https://github.com/galazwoj/dosidle.git
+Copied the documentation text file and the full and partial source.
+They've been converted to utf-8 to make them easier to work with
+on a modern machine.
+
+
+Modified DosIdle
+----------------
+
+My application needs to run a slightly modified DosIdle (v2.51).
+The original DosIdle considers checking the date or time as
+the application not being idle.  But my app runs both of those
+operations a lot, when it is in fact otherwise idle.  So my
+modification here, ignores those two DOS calls, and no longer
+considers them as indicative of being busy.
+
+
+Assemble
+--------
+
+Tasm 4.0 assembler in the archive here, from https://github.com/zajo/TASM.git
+
+To assemble, you'll need the Tasm 4.0 compiler and run tasm and tlink
+against the source, in dosbox or other emulator.  
+
+But first, you'll need to convert the utf-8 encoded modified.asm,
+ back to a cp437 encoding, to be recognized properly inside of dosbox.
+
+To convert it:
+    iconv -f UTF-8 -t CP437  -o 437.asm modified.asm
+
+Then copy the 437.asm to a dosbox, and assemble it.  It will assemble
+without this step, but there will be subtle differences from the original
+dosidle 2.51.  To compile it inside the dosbox use the tasm 4 assembler
+(tasm.exe) and then link it with (tlink.exe)
+
+
+
+Use
+---
+
+Run the assembled dosidle exe in the autoexec.bat of Dosbox-x.  And also
+make sure to disable Dosbox-x's "Dosidle api" in its config, since we don't
+want to use its built in idle detection.
+
